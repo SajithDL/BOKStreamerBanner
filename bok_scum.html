@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blaze Of Knights OBS Banner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: yellow; */
+            height: 18vh;
+        }
+
+        #banner {
+            /* background-color: red; */
+            position: relative;
+            width: 80vw;
+            height: 20vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .message {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: scale(0.9);
+            width: 100%;
+        }
+
+        .message.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* .text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 
+                0 0 5px #0077bd,
+                0 0 10px #0077bd,
+                0 0 20px #0077bd,
+                0 0 40px #0077bd;
+            margin: 0;
+            padding: 20px;
+        } */
+
+        .text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 
+                0 0 5px #000000,
+                0 0 10px #000000,
+                0 0 20px #000000,
+                0 0 40px #000000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .text2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff2b7;
+            text-shadow: 
+                0 0 5px #77640c,
+                0 0 10px #77640c,
+                0 0 20px #77640c,
+                0 0 40px #77640c;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="banner"></div>
+    </div>
+    
+
+    <script>
+        let streamerName = 'Blaze Of Knights';
+
+        const messages = [
+            '<img src="https://cdn.discordapp.com/attachments/735566688925384744/1287250681337610326/Logo.png?ex=66f0dd1e&is=66ef8b9e&hm=066dc7bcafd382a6abbcf81b1558bd9875725ac6af3a5c960829163acae7e6ac&" alt="Logo" class="pulse">',
+            // '<p class="text">TEAM BOK</p>',
+            () => `<p class="text">WELCOME TO ${streamerName}!</p>`,
+            '<img src="Logo.png" alt="Logo" class="pulse">',
+            // '<p class="text">BLAZE OF KNIGHTS PRESENTS</p>',
+            '<p class="text2">SCUM SERVER</p>',
+            '<p class="text2">Blaze Of Knights - Sri Lanka</p>',
+            '<p class="text">THE GOOD OLD FEELING</p>',
+            '<p class="text">IS BACK!</p>',
+            '<p class="text">JOIN NOW!!!</p>',
+            '<p class="text">https://discord.gg/w6kRQXB</p>'
+        ];
+
+        let currentIndex = 0;
+
+        function showNextMessage() {
+            const banner = document.getElementById('banner');
+            let content = messages[currentIndex];
+            if (typeof content === 'function') {
+                content = content();
+            }
+            
+            // Remove the previous message
+            const oldMessage = banner.querySelector('.message');
+            if (oldMessage) {
+                oldMessage.classList.remove('active');
+                setTimeout(() => oldMessage.remove(), 500);
+            }
+
+            // Create and add the new message
+            const newMessage = document.createElement('div');
+            newMessage.className = 'message';
+            newMessage.innerHTML = content;
+            banner.appendChild(newMessage);
+
+            // Trigger reflow to ensure the transition works
+            newMessage.offsetHeight;
+
+            // Activate the new message
+            setTimeout(() => newMessage.classList.add('active'), 50);
+            
+            currentIndex = (currentIndex + 1) % messages.length;
+
+            setTimeout(showNextMessage, 4000);
+        }
+
+        function setStreamerName(name) {
+            streamerName = name;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameFromURL = urlParams.get('name');
+        if (nameFromURL) {
+            setStreamerName(nameFromURL);
+        }
+
+        showNextMessage();
+    </script>
+</body>
+</html>
