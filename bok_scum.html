@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blaze Of Knights OBS Banner</title>
+    <title>Blaze Of Knights Streamer Banner</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            height: 800px;
+            width: 600px;
             overflow: hidden;
-            background-color: transparent;
+            /* background-color: yellow; */
+            /* background-color: transparent; */
             font-family: 'Orbitron', sans-serif;
             /* display: flex;
-            justify-content: center;
-            align-items: center; */
+                justify-content: center;
+                align-items: center; */
         }
 
         #container {
@@ -23,25 +27,31 @@
             justify-content: center;
             align-items: center;
             /* background-color: yellow; */
-            height: 18vh;
+            /* height: 100%; */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
         }
 
         #banner {
             /* background-color: red; */
             position: relative;
-            width: 80vw;
-            height: 20vh;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            /* background-color: #000; */
         }
 
         .message {
             position: absolute;
             opacity: 0;
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            transform: scale(0.9);
+            transform: scale(0.95);
             width: 100%;
         }
 
@@ -50,84 +60,75 @@
             transform: scale(1);
         }
 
-        /* .text {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 
-                0 0 5px #0077bd,
-                0 0 10px #0077bd,
-                0 0 20px #0077bd,
-                0 0 40px #0077bd;
-            margin: 0;
-            padding: 20px;
-        } */
-
-        .text {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .textstyle {
+            font-size: 3.0rem;
+            font-weight: 800;
+            padding: 0.2em 0.1em;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: none;
+            outline: none;
             color: #ffffff;
-            text-shadow: 
-                0 0 5px #000000,
-                0 0 10px #000000,
-                0 0 20px #000000,
-                0 0 40px #000000;
-            margin: 0;
-            padding: 20px;
+            /* background: #111; */
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            text-shadow: #000 0.1em 0.1em 0.2em;
         }
-
-        .text2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #fff2b7;
-            text-shadow: 
-                0 0 5px #77640c,
-                0 0 10px #77640c,
-                0 0 20px #77640c,
-                0 0 40px #77640c;
-            margin: 0;
-            padding: 20px;
-        }
-
 
         img {
-            max-width: 200px;
+            max-width: 280px;
             height: auto;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .pulse {
             animation: pulse 2s infinite ease-in-out;
         }
+
+        .maintexts {
+            /* font-size: 2rem; */
+            /* font-weight: 800; */
+            color: #d2eeff;
+        }
+        
     </style>
 </head>
+
 <body>
     <div id="container">
         <div id="banner"></div>
     </div>
-    
+
 
     <script>
         let streamerName = 'Blaze Of Knights';
+        let GameName = 'Scum';
 
         const messages = [
             '<img src="https://raw.githubusercontent.com/SajithDL/BOKStreamerBanner/refs/heads/main/Logo.png" alt="Logo" class="pulse">',
-            // '<p class="text">TEAM BOK</p>',
-            () => `<p class="text">WELCOME TO ${streamerName}!</p>`,
-            '<img src="https://raw.githubusercontent.com/SajithDL/BOKStreamerBanner/refs/heads/main/Logo.png" alt="Logo" class="pulse">',
-            // '<p class="text">BLAZE OF KNIGHTS PRESENTS</p>',
-            '<p class="text2">Blaze Of Knights - Sri Lanka</p>',
-            '<p class="text2">SCUM SERVER</p>',
-            '<p class="text">THE GOOD OLD FEELING</p>',
-            '<p class="text">IS BACK!</p>',
-            '<p class="text">JOIN NOW!!!</p>'
+            '<p class="textstyle maintexts">BLAZE OF KNIGHTS</p>',
+            '<p class="textstyle"> Gaming Community</p>',
+            '<p class="textstyle"> Dedicated Servers</p>',
+            '<p class="textstyle"> Custom Events</p>',
+            // () => `<p class="text">WELCOME TO ${streamerName}!</p>`,
+            // '<img src="https://raw.githubusercontent.com/SajithDL/BOKStreamerBanner/refs/heads/main/Logo.png" alt="Logo" class="pulse">',
+            // () => `<p class="maintexts">${GameName}</p>`,
+            '<p class="textstyle">JOIN NOW!!!</p>'
         ];
 
         let currentIndex = 0;
@@ -138,12 +139,12 @@
             if (typeof content === 'function') {
                 content = content();
             }
-            
+
             // Remove the previous message
             const oldMessage = banner.querySelector('.message');
             if (oldMessage) {
                 oldMessage.classList.remove('active');
-                setTimeout(() => oldMessage.remove(), 500);
+                setTimeout(() => oldMessage.remove(), 50);
             }
 
             // Create and add the new message
@@ -157,23 +158,58 @@
 
             // Activate the new message
             setTimeout(() => newMessage.classList.add('active'), 50);
-            
+
             currentIndex = (currentIndex + 1) % messages.length;
 
-            setTimeout(showNextMessage, 4000);
+            if (currentIndex === 1) {
+                setTimeout(showNextMessage, 5000);
+                console.log(currentIndex);
+            } else if
+                // (currentIndex === 2) {
+                //     setTimeout(showNextMessage, 150);
+                //     console.log(currentIndex);
+                // } else if
+                // (currentIndex === 3) {
+                //     setTimeout(showNextMessage, 150);
+                //     console.log(currentIndex);
+                // } else if
+                // (currentIndex === 4) {
+                //     setTimeout(showNextMessage, 150);
+                //     console.log(currentIndex);
+                // } else if
+                // (currentIndex === 5) {
+                //     setTimeout(showNextMessage, 150);
+                //     console.log(currentIndex);
+                // } else if
+                // (currentIndex === 6) {
+                //     setTimeout(showNextMessage, 150);
+                // } else if
+                (currentIndex === currentIndex) {
+                setTimeout(showNextMessage, 2500);
+                console.log(currentIndex);
+            }
         }
 
         function setStreamerName(name) {
             streamerName = name;
         }
 
+        function setGameName(game) {
+            GameName = game;
+        }
+
+
         const urlParams = new URLSearchParams(window.location.search);
         const nameFromURL = urlParams.get('name');
+        const gameFromURL = urlParams.get('game');
         if (nameFromURL) {
             setStreamerName(nameFromURL);
         }
-
+        if (gameFromURL) {
+            setGameName(gameFromURL);
+        }
         showNextMessage();
     </script>
 </body>
+
 </html>
